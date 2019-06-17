@@ -62,8 +62,30 @@
  * 
  */
 class Solution {
+    private HashMap<Character, Character> parentheses;
+
+    public Solution() {
+        this.parentheses = new HashMap<Character, Character>();
+        this.parentheses.put('}', '{');
+        this.parentheses.put(']', '[');
+        this.parentheses.put(')', '(');
+    }
+
     public boolean isValid(String s) {
-        
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < s.length(); i++) {
+            char currElem = s.charAt(i);
+            //if left parentheses, push
+            if(!this.parentheses.containsKey(currElem)) {
+                stack.push(s.charAt(i));
+            } else {
+                char top = stack.empty() ? '#': stack.pop();
+                if(top != this.parentheses.get(currElem)) {
+                    return false;
+                }
+            }
+        }
+        return stack.empty(); 
     }
 }
 
