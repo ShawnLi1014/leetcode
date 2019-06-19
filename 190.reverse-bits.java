@@ -57,7 +57,7 @@
  * If this function is called many times, how would you optimize it?
  * 
  */
-public class Solution {
+class Solution {
     // you need treat n as an unsigned value
     public int reverseBits(int n) {
         int result = 0;
