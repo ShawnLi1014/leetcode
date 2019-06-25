@@ -67,3 +67,4 @@ class Solution {
         node.next = node.next.next;
     }
 }
+// Time complexity O(1), space complexity O(1)
