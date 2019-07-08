@@ -75,4 +75,6 @@ class Solution {
         currResult.remove(currResult.size() - 1);
     }
 }
+// Time Complexity O(n), since we visit each node once
+// Space Complexity O(n)
 
