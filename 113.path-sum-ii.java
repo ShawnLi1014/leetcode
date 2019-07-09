@@ -67,7 +67,6 @@ class Solution {
         currResult.add(root.val);
         if (root.left == null && root.right == null && root.val == sum) {
             ans.add(new ArrayList(currResult));
-            return;
         } else {
             dfs(root.left, sum - root.val, currResult, ans);
             dfs(root.right, sum - root.val, currResult, ans);
