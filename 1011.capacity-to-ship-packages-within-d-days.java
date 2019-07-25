@@ -81,7 +81,31 @@
  */
 class Solution {
     public int shipWithinDays(int[] weights, int D) {
-        
+        int lo = 1, hi = Integer.MAX_VALUE;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (!possible(weights, D, mid)) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo;
+    }
+
+    public boolean possible(int[] weights, int D, int capacity) {
+        int weight = capacity, time = 1;
+        for (int i = 0; i < weights.length; i++) {
+            if (capacity < weights[i]) {
+                return false;
+            }
+            if (weight - weights[i] < 0) {
+                time += 1;
+                weight = capacity;
+            }
+            weight -= weights[i];
+        }
+        return time <= D;
     }
 }
 
