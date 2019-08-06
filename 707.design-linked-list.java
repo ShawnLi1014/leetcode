@@ -61,80 +61,96 @@
  * 
  */
 class MyLinkedList {
+
     class ListNode {
         int val;
         ListNode next;
 
-        public ListNode(int v) {
-            val = v;
+        public ListNode(int val) {
+            this.val = val;
         }
     }
-    private ListNode sentinel;
+
     private int size;
+    private ListNode dummy;
 
     /** Initialize your data structure here. */
     public MyLinkedList() {
-        sentinel = new ListNode(0);
-        sentinel.next = null;
+        dummy = new ListNode(0);
+        dummy.next = null;
         size = 0;
     }
-    
-    /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+
+    /**
+     * Get the value of the index-th node in the linked list. If the index is
+     * invalid, return -1.
+     */
     public int get(int index) {
-        ListNode ptr = sentinel.next;
-        if (index > size - 1) {
+        if (index >= size || index < 0) {
             return -1;
         }
+        ListNode p = dummy.next;
         for (int i = 0; i < index; i++) {
-            ptr = ptr.next;
+            p = p.next;
         }
-        return ptr.val;
+        return p.val;
     }
-    
-    /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+
+    /**
+     * Add a node of value val before the first element of the linked list. After
+     * the insertion, the new node will be the first node of the linked list.
+     */
     public void addAtHead(int val) {
-        ListNode head = new ListNode(val);
-        head.next = sentinel.next;
-        sentinel.next = head;
+        ListNode newNode = new ListNode(val);
+        newNode.next = dummy.next;
+        dummy.next = newNode;
         size++;
     }
-    
+
     /** Append a node of value val to the last element of the linked list. */
     public void addAtTail(int val) {
-        ListNode tail = new ListNode(val);
-        ListNode ptr = sentinel;
-        while (ptr.next != null) {
-            ptr = ptr.next;
-        }
-        ptr.next = tail;
-        size++;
-    }
-    
-    /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
-    public void addAtIndex(int index, int val) {
         ListNode newNode = new ListNode(val);
-        ListNode ptr = sentinel;
-        if (index > size) {
-            return;
+        ListNode p = dummy;
+        while (p.next != null) {
+            p = p.next;
         }
-        for (int i = 0; i < index; i++) {
-            ptr = ptr.next;
-        }
-        newNode.next = ptr.next;
-        ptr.next = newNode;
+        p.next = newNode;
         size++;
     }
-    
+
+    /**
+     * Add a node of value val before the index-th node in the linked list. If index
+     * equals to the length of linked list, the node will be appended to the end of
+     * linked list. If index is greater than the length, the node will not be
+     * inserted.
+     */
+    public void addAtIndex(int index, int val) {
+        if (index < 0) {
+            addAtHead(val);
+        } else if (index > size) {
+            return;
+        } else {
+            ListNode p = dummy;
+            ListNode newNode = new ListNode(val);
+            for (int i = 0; i < index; i++) {
+                p = p.next;
+            }
+            newNode.next = p.next;
+            p.next = newNode;
+        }
+        size++;
+    }
+
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
-        if (index > size - 1) {
+        if (index >= size || index < 0) {
             return;
         }
-        ListNode ptr = sentinel;
+        ListNode p = dummy;
         for (int i = 0; i < index; i++) {
-            ptr = ptr.next;
+            p = p.next;
         }
-        ptr.next = ptr.next.next;
+        p.next = p.next.next;
         size--;
     }
 }
